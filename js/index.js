@@ -23,11 +23,18 @@ const productList = [
     product:"Shoes",
     quantity:0,
     unitPrice: 35.49
+  },
+  {
+    product:"jackets",
+    quantity:0,
+    unitPrice: 75.49
   }
 ];
 
+let subTotal = 0;
+
 function getProductAsList(product){
-  return `<li >
+  return `<li>
             <ul class="product-row">
               <li>${product.product}</li>
               <li><input type="button" value="-" id="${product.product}dec">
@@ -35,7 +42,7 @@ function getProductAsList(product){
                   <input type="button" value="+" id="${product.product}inc">
                   </li>
               <li>${product.unitPrice}</li>
-              <li>${product.quantity*product.unitPrice}</li>
+              <li id="${product.product}ExtendedPrice">${product.quantity*product.unitPrice}</li>
             </ul>
           </li>`
 }
@@ -59,18 +66,33 @@ function addEvents(product){
   document.getElementById(incButtonID).addEventListener("click", function(){ increaseQuantity(product);});
 }
 
-function updatePrice(priceListHeader){
-  document.getElementById("product-list").innerHTML = priceListHeader;
-  document.getElementById("product-list").innerHTML += productList.map(getProductAsList).join('\n');
+function getSubTotal(){
+  
+}
+
+function updatePrice(product){
+  console.log(`${product.product}ExtendedPrice`);
+  let extendedPrice = product.quantity*product.unitPrice;
+  document.getElementById(`${product.product}ExtendedPrice`).innerHTML = extendedPrice
+  subTotal += extendedPrice;
+}
+
+function updateInvoice(){
+  subTotal = 0; 
+  productList.map(updatePrice);
+  document.getElementById("sub-total").innerHTML = `Subtotal: ${subTotal.toFixed(2)}`;
+  let tax = subTotal*.13;
+  document.getElementById("tax").innerHTML = `Tax: ${tax.toFixed(2)}`;
+  let total = tax + subTotal;
+  document.getElementById("total").innerHTML = `Total: ${total.toFixed(2)}`;
 }
 
 window.addEventListener('load', function(){
 
-  let priceListHeader = this.document.getElementById("product-list").innerHTML;
-  updatePrice(priceListHeader);
+  document.getElementById("product-list").innerHTML += productList.map(getProductAsList).join('\n');
   productList.map(addEvents)
 
-  document.getElementById("calculate").addEventListener("click", function(){ updatePrice(priceListHeader);});
-  
+  document.getElementById("calculate").addEventListener("click", updateInvoice);
+
 });
 
