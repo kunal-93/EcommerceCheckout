@@ -66,10 +66,6 @@ function addEvents(product){
   document.getElementById(incButtonID).addEventListener("click", () => increaseQuantity(product));
 }
 
-function getSubTotal(){
-  
-}
-
 function updatePrice(product){
   console.log(`${product.product}ExtendedPrice`);
   let extendedPrice = product.quantity*product.unitPrice;
