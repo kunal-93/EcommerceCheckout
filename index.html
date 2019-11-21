@@ -9,27 +9,32 @@
   <script src="js/index.js"></script>
 </head>
 <body>
-  <section>
-    <h1>ECommerce Checkout</h1>
-    <ul id="product-list">
-      <li>
-        <ul class="product-row">
-          <li><strong>Product</strong></li>
-          <li><strong>Quantity</strong></li>
-          <li><strong>Unit Price</strong></li>
-          <li><strong>Extended Price</strong></li>
-        </ul>
-      </li>
-    </ul>
-    <input type="button" value="Calculate" id="calculate">
-  </section>
-  <section>
-    <ul>
-      <li id="sub-total">Subtotal:</li>
-      <li id="tax">Tax:</li>
-      <li id="total">Total:</li>
-      <li><label>Have a promo code?<input type="button" value="Click to Enter" id="promo-button"></label></li>
-    </ul>
-  </section>
+  <main>
+    <section class="product-section">
+      <h1 class="header">ECommerce Checkout</h1>
+      <ul class="product-list" id="product-list">
+        <li>
+          <ul class="product-row">
+            <li><strong>Product</strong></li>
+            <li><strong>Quantity</strong></li>
+            <li><strong>Unit Price</strong></li>
+            <li><strong>Extended Price</strong></li>
+          </ul>
+        </li>
+      </ul>
+      <label class="calculate-button"><input type="button" value="Calculate" id="calculate"></label>
+    </section>
+    <section class="invoice-section">
+      <ul>
+        <li id="sub-total">Subtotal:</li>
+        <li id="tax">Tax:</li>
+        <li id="total">Total:</li>
+        <li id="promo-applied"></li>
+      </ul>
+      <label>Have a promo code?<input type="button" value="Click to Enter" id="promo-button"></label>
+    </section>
+    
+  </main>
+  
 </body>
 </html>

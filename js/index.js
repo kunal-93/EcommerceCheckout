@@ -62,8 +62,8 @@ function increaseQuantity(product){
 function addEvents(product){
   let decButtonID = `${product.product}dec`;
   let incButtonID = `${product.product}inc`;
-  document.getElementById(decButtonID).addEventListener("click", function(){ decreaseQuantity(product);});
-  document.getElementById(incButtonID).addEventListener("click", function(){ increaseQuantity(product);});
+  document.getElementById(decButtonID).addEventListener("click", () => decreaseQuantity(product));
+  document.getElementById(incButtonID).addEventListener("click", () => increaseQuantity(product));
 }
 
 function getSubTotal(){
@@ -77,14 +77,36 @@ function updatePrice(product){
   subTotal += extendedPrice;
 }
 
-function updateInvoice(){
+function updateInvoice(promo5050=false, taxPercent=0.13){
   subTotal = 0; 
   productList.map(updatePrice);
+
+  if(promo5050==true)
+    subTotal/=2;
+
   document.getElementById("sub-total").innerHTML = `Subtotal: ${subTotal.toFixed(2)}`;
-  let tax = subTotal*.13;
+  let tax = subTotal*taxPercent;
   document.getElementById("tax").innerHTML = `Tax: ${tax.toFixed(2)}`;
   let total = tax + subTotal;
   document.getElementById("total").innerHTML = `Total: ${total.toFixed(2)}`;
+  document.getElementById("promo-applied").innerHTML = "";
+}
+
+const getPromoCode = () => {
+  const promo = window.prompt("Enter promo code");
+  if(promo != null){
+    if(promo.toUpperCase() == "NOTAX"){
+      updateInvoice(false, 0);
+      document.getElementById("promo-applied").innerHTML = `Promo Applied = ${promo.toUpperCase()}, Description = Taxes are waived off`;
+    }
+    else if(promo.toUpperCase() == "FIFTYFIFTY"){
+      updateInvoice(true);
+      document.getElementById("promo-applied").innerHTML = `Promo Applied = ${promo.toUpperCase()}, Description = 50% off on Subtotal`;
+    }
+    else{
+      window.alert(`PromoCode - ${promo} is Invalid`); 
+    }
+  }
 }
 
 window.addEventListener('load', function(){
@@ -93,6 +115,8 @@ window.addEventListener('load', function(){
   productList.map(addEvents)
 
   document.getElementById("calculate").addEventListener("click", updateInvoice);
+
+  document.getElementById("promo-button").addEventListener("click", getPromoCode);
 
 });
 
