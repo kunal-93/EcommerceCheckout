@@ -41,7 +41,7 @@ function getProductAsList(product){
                   <label id="${product.product}id">${product.quantity}</label>
                   <input type="button" value="+" id="${product.product}inc">
                   </li>
-              <li>${product.unitPrice}</li>
+              <li>${product.unitPrice.toFixed(2)}</li>
               <li id="${product.product}ExtendedPrice">${product.quantity*product.unitPrice}</li>
             </ul>
           </li>`
@@ -73,7 +73,7 @@ function getSubTotal(){
 function updatePrice(product){
   console.log(`${product.product}ExtendedPrice`);
   let extendedPrice = product.quantity*product.unitPrice;
-  document.getElementById(`${product.product}ExtendedPrice`).innerHTML = extendedPrice
+  document.getElementById(`${product.product}ExtendedPrice`).innerHTML = extendedPrice.toFixed(2);
   subTotal += extendedPrice;
 }
 
