@@ -77,10 +77,14 @@ function updateInvoice(promo5050=false, taxPercent=0.13){
   subTotal = 0; 
   productList.map(updatePrice);
 
-  if(promo5050==true)
+  if(promo5050==true){
+    document.getElementById("sub-total").innerHTML = `Subtotal: ${subTotal.toFixed(2)}%2 = ${(subTotal/2).toFixed(2)}`;
     subTotal/=2;
+  }
+  else
+    document.getElementById("sub-total").innerHTML = `Subtotal: ${subTotal.toFixed(2)}`;
 
-  document.getElementById("sub-total").innerHTML = `Subtotal: ${subTotal.toFixed(2)}`;
+  
   let tax = subTotal*taxPercent;
   document.getElementById("tax").innerHTML = `Tax: ${tax.toFixed(2)}`;
   let total = tax + subTotal;
